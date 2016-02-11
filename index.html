@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Memcache-namespaces by herolynx</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Memcache-namespaces</h1>
+        <p>Abstraction layer for providing cache namespaces</p>
+        <p class="view"><a href="https://github.com/herolynx/memcache-namespaces">View the Project on GitHub <small>herolynx/memcache-namespaces</small></a></p>
+        <ul>
+          <li><a href="https://github.com/herolynx/memcache-namespaces/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/herolynx/memcache-namespaces/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/herolynx/memcache-namespaces">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="namespace-cache-ncache" class="anchor" href="#namespace-cache-ncache" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Namespace cache (NCache)</h1>
+
+<p>Abstraction layer for providing cache namespaces. <br>
+Namespaces allow creating separate areas in cache region (for chosen groups, users etc.) and <br>
+cleansing of only needed part. Each namespace is separate. <br>
+Any cache provider can be wrapped with virtual namespaces (mem-cached, ehcache etc.).  <br>
+Namespace-cache can be used with Spring or as a stand-alone solution.  <br></p>
+
+<h1>
+<a id="build" class="anchor" href="#build" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Build</h1>
+
+<p>Project is managed using maven so just hit:</p>
+
+<pre><code>    $mvn clean install
+</code></pre>
+
+<h1>
+<a id="sample-usage" class="anchor" href="#sample-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sample usage</h1>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">import static</span> <span class="pl-smi">com.mwronski.ncache.NCache.*</span>;
+
+<span class="pl-smi">Cache</span> cache <span class="pl-k">=</span> <span class="pl-c1">...</span>; <span class="pl-c">//provide your cache here</span>
+<span class="pl-c">//wrap your provider with cache with name-spacing capability</span>
+<span class="pl-smi">NCache</span> nCache <span class="pl-k">=</span> nCache(cache);
+<span class="pl-c">//create namespace for keeping data of chosen users</span>
+<span class="pl-k">int</span> userId <span class="pl-k">=</span> <span class="pl-c1">123</span>;
+<span class="pl-smi">Cache</span> userNs <span class="pl-k">=</span> nCache<span class="pl-k">.</span>namespace(<span class="pl-s"><span class="pl-pds">"</span>namespace-per-user<span class="pl-pds">"</span></span>, userId);
+
+<span class="pl-c">//do regular operations on your chosen namespace</span>
+userNs<span class="pl-k">.</span>put(<span class="pl-s"><span class="pl-pds">"</span>key1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>value1<span class="pl-pds">"</span></span>);
+userNs<span class="pl-k">.</span>get(<span class="pl-s"><span class="pl-pds">"</span>key1<span class="pl-pds">"</span></span>);
+userNs<span class="pl-k">.</span>evict(<span class="pl-s"><span class="pl-pds">"</span>key1<span class="pl-pds">"</span></span>);
+userNs<span class="pl-k">.</span>clear();
+</pre></div>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/herolynx">herolynx</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
